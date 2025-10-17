@@ -55,15 +55,49 @@ console.log(j); // ReferenceError: j is not defined (j is block-scoped)[web:45][
 - Using let keeps the loop variable local to the loop, preventing it from leaking into the surrounding scope and reducing the risk of bugs.
 - This aligns with modern coding practices that favor minimizing global variables and maximizing variable locality for safer, more predictable code.
 
-## The Temporal Dead Zone (TDZ)
-Variables declared with `let` and `const` are hoisted but not initialized. Accessing them before their declaration in the block causes a **ReferenceError**. This period is called the *temporal dead zone* (TDZ).
+### 1. Definition and Cause
+- The TDZ starts at the beginning of a block (curly braces `{}`) and ends when the let or const variable is declared and initialized.
+- Accessing the variable before its declaration line throws a ReferenceError, even though the variable technically exists in the scope.
+- Example:
+  ```js
+  {
+    // TDZ for 'a' starts here
+    // console.log(a); // ReferenceError
+    let a = 10; // TDZ ends here
+  }
+  ```
 
-```js
-{
-  // console.log(a); // ReferenceError
-  let a = 1;
-}
-```
+### 2. Contrast with var (Hoisting)
+- Variables declared with var are hoisted and initialized to undefined at the top of their scope, so accessing them before their declaration does not throw an error, but returns undefined.
+- let and const are also hoisted, but not initialized, which is why accessing them before their declaration triggers the TDZ and a ReferenceError.
+- Example:
+  ```js
+  console.log(b); // undefined
+  var b = 5;
+
+  console.log(c); // ReferenceError
+  let c = 10;
+  ```
+
+### 3. Declaration Requirements and Initialization
+- let and var can be declared without an initializer, but let variables are still subject to the TDZ until their declaration is processed.
+- const must always be initialized at declaration, and is also subject to the TDZ.
+- Example:
+  ```js
+  {
+    // console.log(d); // ReferenceError
+    const d = 20; // Must be initialized here
+  }
+  ```
+
+### Summary Table
+
+| Keyword | Hoisted | Initialized Before Declaration | TDZ Applies | Access Before Declaration |
+|---------|---------|-------------------------------|-------------|--------------------------|
+| var     | Yes     | Yes (undefined)               | No          | undefined                |
+| let     | Yes     | No                            | Yes         | ReferenceError           |
+| const   | Yes     | No (must initialize)          | Yes         | ReferenceError           |
+
 
 ## Block Scope and Function Declarations (Strict Mode)
 In strict mode, function declarations inside blocks are only visible within that block. To use a function outside a conditional block, assign a function expression to a `let` variable declared outside the block.
