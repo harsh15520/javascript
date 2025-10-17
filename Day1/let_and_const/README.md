@@ -24,25 +24,36 @@ if (true) {
 }
 console.log(x); // 5 (accessible outside the block)
 ```
+### Key Differences in Loop Scoping
 
-## Block Scope in Loops
-Using `let` in loops creates a new variable for each iteration, which is especially useful in closures:
+- **var (Function/Global Scope):**
+  - A variable declared with var inside a loop is not limited to the loop block; it is accessible throughout the enclosing function or globally if not in a function.
+  - After the loop, the variable retains its final value and can be accessed or modified outside the loop.
 
-```js
-for (let i = 0; i < 3; i++) {
-  setTimeout(() => console.log(i), 100);
-}
-// Logs: 0, 1, 2
-```
+- **let (Block Scope):**
+  - A variable declared with let in the loop header or body is only accessible within the loop block.
+  - Attempting to access the variable outside the loop results in a ReferenceError, preventing accidental use or modification.
 
-If you use `var`, all closures share the same variable, often leading to unexpected results:
+### Example Comparison
 
-```js
+```javascript
+// Using var
 for (var i = 0; i < 3; i++) {
-  setTimeout(() => console.log(i), 100);
+  // loop body
 }
-// Logs: 3, 3, 3
+console.log(i); // 3 (i is accessible and retains its value)[web:45][web:48]
+
+// Using let
+for (let j = 0; j < 3; j++) {
+  // loop body
+}
+console.log(j); // ReferenceError: j is not defined (j is block-scoped)[web:45][web:48]
 ```
+
+### Why let is Preferred in Loops
+
+- Using let keeps the loop variable local to the loop, preventing it from leaking into the surrounding scope and reducing the risk of bugs.
+- This aligns with modern coding practices that favor minimizing global variables and maximizing variable locality for safer, more predictable code.
 
 ## The Temporal Dead Zone (TDZ)
 Variables declared with `let` and `const` are hoisted but not initialized. Accessing them before their declaration in the block causes a **ReferenceError**. This period is called the *temporal dead zone* (TDZ).
