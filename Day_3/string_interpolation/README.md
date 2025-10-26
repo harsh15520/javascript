@@ -1,4 +1,4 @@
-Template literals in JavaScript (also known as template strings) extend the power of traditional string creation by enabling interpolation, multi-line formatting, and tagged template functions.[1][2][5][7]
+Template literals in JavaScript (also known as template strings) extend the power of traditional string creation by enabling interpolation, multi-line formatting, and tagged template functions.
 
 ## 1. Syntax and Structure
 
@@ -11,7 +11,7 @@ tagFunction`string text ${expression}`
 ```
 - **Backticks (`)** — indicate that the string is a template literal.
 - **${expression}** — used to embed variables or evaluate expressions.
-- **tagFunction** — allows advanced preprocessing when using tagged templates.[2][1]
+- **tagFunction** — allows advanced preprocessing when using tagged templates.
 
 ## 2. String Interpolation
 
@@ -48,7 +48,7 @@ This is line two
 This is line three`;
 console.log(message);
 ```
-This preserves both formatting and indentation, making it ideal for generating text blocks, emails, or HTML templates.[5][7]
+This preserves both formatting and indentation, making it ideal for generating text blocks, emails, or HTML templates.
 
 ## 4. Contrast with Regular Strings
 
@@ -93,7 +93,7 @@ console.log(result);
 The tag function has full control over how to merge and transform values, enabling use cases like:
 - Syntax highlighting
 - Dynamic string sanitization
-- Localization or formatting rules.[6][7]
+- Localization or formatting rules.
 
 ## 6. Escaping Backticks
 
