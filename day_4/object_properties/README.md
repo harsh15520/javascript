@@ -215,52 +215,6 @@ console.log(string4);  // "default value" (used default)
 
 ## 6. Practical Use Cases
 
-### Function Parameter Destructuring
-```javascript
-// Extract specific nested values in function parameters
-function displayUserPosts({
-  integer1: userId,
-  object2: {
-    object3: {
-      string1: username,
-      list1: posts
-    }
-  }
-}) {
-  console.log(`User ${username} (ID: ${userId}) has ${posts.length} posts:`);
-  posts.forEach(post => {
-    const title = post.string2 || post.string3;
-    console.log(`- ${title}`);
-  });
-}
-
-displayUserPosts(object1);
-// User bob (ID: 200) has 2 posts:
-// - first post
-// - second post
-```
-
-### Processing First Post Only
-```javascript
-function getFirstPostDetails({
-  object2: {
-    object3: {
-      string1,
-      list1: [{ integer3, string2 }]
-    }
-  }
-}) {
-  return {
-    author: string1,
-    postId: integer3,
-    title: string2
-  };
-}
-
-console.log(getFirstPostDetails(object1));
-// { author: 'bob', postId: 1, title: 'first post' }
-```
-
 ### Combining Multiple Patterns
 ```javascript
 // Complex real-world scenario
@@ -287,41 +241,6 @@ console.log('First post:', firstPost);       // Full first post object
 console.log('Last post ID:', integer4);      // 2
 console.log('Last post title:', lastTitle);  // 'second post'
 ```
-
-### Updating Posts with Destructuring
-```javascript
-function updatePost(data, postIndex, updates) {
-  const {
-    object2: {
-      object3: {
-        list1: posts
-      }
-    }
-  } = data;
-  
-  // Create updated post
-  const updatedPost = { ...posts[postIndex], ...updates };
-  
-  // Return new structure with updated post
-  return {
-    ...data,
-    object2: {
-      ...data.object2,
-      object3: {
-        ...data.object2.object3,
-        list1: posts.map((post, idx) => 
-          idx === postIndex ? updatedPost : post
-        )
-      }
-    }
-  };
-}
-
-const updated = updatePost(object1, 0, { string2: 'Updated first post' });
-console.log(updated.object2.object3.list1[0].string2);
-// 'Updated first post'
-```
-
 ## 7. Skipping Nested Elements with Rest
 
 ```javascript
