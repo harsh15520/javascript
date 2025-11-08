@@ -265,44 +265,6 @@ console.log(updated1.object2.object3.list1[0]);
 // { integer3: 1, string2: 'Updated First Post', edited: true }
 ```
 
-### Update Post by ID
-```javascript
-function updatePostById(data, postId, updates) {
-  const {
-    object2: {
-      object3: {
-        list1: posts
-      }
-    }
-  } = data;
-  
-  const updatedPosts = posts.map(post => {
-    // Check both possible ID fields
-    const currentId = post.integer3 || post.integer4;
-    return currentId === postId ? { ...post, ...updates } : post;
-  });
-  
-  return {
-    ...data,
-    object2: {
-      ...data.object2,
-      object3: {
-        ...data.object2.object3,
-        list1: updatedPosts
-      }
-    }
-  };
-}
-
-const updated2 = updatePostById(object1, 1, { 
-  string2: 'Modified by ID',
-  timestamp: Date.now()
-});
-
-console.log(updated2.object2.object3.list1[0]);
-// { integer3: 1, string2: 'Modified by ID', timestamp: 1699... }
-```
-
 ### Add New Post
 ```javascript
 function addPost(data, newPost) {
@@ -410,78 +372,6 @@ const updatedFirst = updateFirstPost(object1, {
 
 console.log(updatedFirst.object2.object3.list1[0]);
 // { integer3: 1, string2: 'Brand New First Post', featured: true }
-```
-
-### Update Last Post Only
-```javascript
-function updateLastPost(data, updates) {
-  const {
-    object2: {
-      object3: {
-        list1: posts
-      }
-    }
-  } = data;
-  
-  const lastIndex = posts.length - 1;
-  const updatedPosts = posts.map((post, idx) =>
-    idx === lastIndex ? { ...post, ...updates } : post
-  );
-  
-  return {
-    ...data,
-    object2: {
-      ...data.object2,
-      object3: {
-        ...data.object2.object3,
-        list1: updatedPosts
-      }
-    }
-  };
-}
-
-const updatedLast = updateLastPost(object1, { 
-  string3: 'Updated Last Post',
-  pinned: true 
-});
-
-console.log(updatedLast.object2.object3.list1[1]);
-// { integer4: 2, string3: 'Updated Last Post', pinned: true }
-```
-
-### Bulk Update All Posts
-```javascript
-function bulkUpdatePosts(data, updateFn) {
-  const {
-    object2: {
-      object3: {
-        list1: posts
-      }
-    }
-  } = data;
-  
-  const updatedPosts = posts.map(updateFn);
-  
-  return {
-    ...data,
-    object2: {
-      ...data.object2,
-      object3: {
-        ...data.object2.object3,
-        list1: updatedPosts
-      }
-    }
-  };
-}
-
-// Add timestamp to all posts
-const withTimestamps = bulkUpdatePosts(object1, post => ({
-  ...post,
-  timestamp: Date.now()
-}));
-
-console.log(withTimestamps.object2.object3.list1);
-// All posts now have timestamp field
 ```
 
 ### Conditional Update
