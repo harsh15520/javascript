@@ -28,27 +28,6 @@ function getFirstPost({ object2: { object3: { list1: [firstPost] } } }) {
 console.log(getFirstPost(object1));
 // { integer3: 1, string2: 'first post' }
 ```
-
-### First Post with Author Context
-```javascript
-function getFirstPostWithAuthor({
-  object2: {
-    object3: {
-      string1: author,
-      list1: [firstPost]
-    }
-  }
-}) {
-  return {
-    ...firstPost,
-    author
-  };
-}
-
-console.log(getFirstPostWithAuthor(object1));
-// { integer3: 1, string2: 'first post', author: 'bob' }
-```
-
 ### First Post with Metadata
 ```javascript
 function getFirstPostWithMetadata({
