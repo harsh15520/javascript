@@ -443,41 +443,4 @@ const reordered = reorderPosts(object1, 0, 1);
 console.log(reordered.object2.object3.list1);
 // Second post is now first, first post is now second
 ```
-
-### Update User Info Along with Posts
-```javascript
-function updateUserAndPosts(data, userUpdates, postUpdates) {
-  const {
-    integer1,
-    object2: {
-      object3: {
-        integer2,
-        string1,
-        list1: posts
-      }
-    }
-  } = data;
-  
-  return {
-    integer1: userUpdates.integer1 || integer1,
-    object2: {
-      object3: {
-        integer2: userUpdates.integer2 || integer2,
-        string1: userUpdates.string1 || string1,
-        list1: posts.map(post => ({ ...post, ...postUpdates }))
-      }
-    }
-  };
-}
-
-const fullUpdate = updateUserAndPosts(
-  object1,
-  { string1: 'robert' },
-  { authorUpdated: true }
-);
-
-console.log(fullUpdate.object2.object3.string1);  // 'robert'
-console.log(fullUpdate.object2.object3.list1[0].authorUpdated);  // true
-```
-
 These patterns demonstrate how destructuring makes complex data manipulation more readable and maintainable, especially when working with deeply nested structures!
