@@ -412,57 +412,6 @@ console.log(conditionalUpdate.object2.object3.list1[0]);
 // { integer3: 1, string2: 'first post', highlighted: true }
 ```
 
-### Update with History Tracking
-```javascript
-function updatePostWithHistory(data, postId, updates) {
-  const {
-    object2: {
-      object3: {
-        list1: posts
-      }
-    }
-  } = data;
-  
-  const updatedPosts = posts.map(post => {
-    const currentId = post.integer3 || post.integer4;
-    if (currentId !== postId) return post;
-    
-    // Track history
-    const history = post.history || [];
-    return {
-      ...post,
-      ...updates,
-      history: [
-        ...history,
-        {
-          timestamp: Date.now(),
-          previousValue: { ...post },
-          changes: updates
-        }
-      ]
-    };
-  });
-  
-  return {
-    ...data,
-    object2: {
-      ...data.object2,
-      object3: {
-        ...data.object2.object3,
-        list1: updatedPosts
-      }
-    }
-  };
-}
-
-const withHistory = updatePostWithHistory(object1, 1, { 
-  string2: 'Edited Post' 
-});
-
-console.log(withHistory.object2.object3.list1[0].history);
-// [{ timestamp: ..., previousValue: {...}, changes: {...} }]
-```
-
 ### Reorder Posts
 ```javascript
 function reorderPosts(data, fromIndex, toIndex) {
