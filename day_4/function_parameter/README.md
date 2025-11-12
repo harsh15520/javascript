@@ -4,67 +4,6 @@ Let me show you various patterns for processing posts and updating data.
 
 ## 1. Variety of Processing First Post Only
 
-### Basic First Post Extraction
-```javascript
-const object1 = {
-  integer1: 200,
-  object2: {
-    object3: {
-      integer2: 42,
-      string1: "bob",
-      list1: [
-        { integer3: 1, string2: 'first post' },
-        { integer4: 2, string3: 'second post' }
-      ]
-    }
-  }
-};
-
-// Simple extraction
-function getFirstPost({ object2: { object3: { list1: [firstPost] } } }) {
-  return firstPost;
-}
-
-console.log(getFirstPost(object1));
-// { integer3: 1, string2: 'first post' }
-```
-### First Post with Metadata
-```javascript
-function getFirstPostWithMetadata({
-  integer1: userId,
-  object2: {
-    object3: {
-      integer2: userAge,
-      string1: username,
-      list1: [firstPost, ...remainingPosts]
-    }
-  }
-}) {
-  return {
-    post: firstPost,
-    metadata: {
-      userId,
-      username,
-      userAge,
-      totalPosts: remainingPosts.length + 1,
-      hasMorePosts: remainingPosts.length > 0
-    }
-  };
-}
-
-console.log(getFirstPostWithMetadata(object1));
-// {
-//   post: { integer3: 1, string2: 'first post' },
-//   metadata: {
-//     userId: 200,
-//     username: 'bob',
-//     userAge: 42,
-//     totalPosts: 2,
-//     hasMorePosts: true
-//   }
-// }
-```
-
 ### First Post with Validation
 ```javascript
 function validateFirstPost({
