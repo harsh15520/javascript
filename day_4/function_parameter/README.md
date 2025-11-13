@@ -36,44 +36,6 @@ console.log(validateFirstPost(object1));
 console.log(validateFirstPost({}));
 // { valid: false, error: 'No posts found' }
 ```
-
-### First Post Formatted for Display
-```javascript
-function formatFirstPostForDisplay({
-  object2: {
-    object3: {
-      string1: author,
-      list1: [
-        { integer3: id, string2: title }
-      ]
-    }
-  }
-}) {
-  return {
-    displayText: `Post #${id}: "${title}" by ${author}`,
-    id,
-    title,
-    author,
-    htmlContent: `
-      <article>
-        <h2>${title}</h2>
-        <p>Posted by: ${author}</p>
-        <span>ID: ${id}</span>
-      </article>
-    `
-  };
-}
-
-console.log(formatFirstPostForDisplay(object1));
-// {
-//   displayText: 'Post #1: "first post" by bob',
-//   id: 1,
-//   title: 'first post',
-//   author: 'bob',
-//   htmlContent: '...'
-// }
-```
-
 ### First Post with Related Data
 ```javascript
 function getFirstPostWithContext({
