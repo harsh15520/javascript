@@ -179,51 +179,7 @@ console.log(createUser('Alice', 30, 'admin', 'editor', 'viewer'));
 // }
 ```
 
-#### Rest vs Arguments Object
-```javascript
-// Old way with arguments
-function oldSum() {
-  // arguments is array-like, not real array
-  const args = Array.from(arguments);
-  return args.reduce((acc, n) => acc + n, 0);
-}
-
-// Modern way with rest
-function modernSum(...numbers) {
-  // numbers is a real array
-  return numbers.reduce((acc, n) => acc + n, 0);
-}
-
-console.log(oldSum(1, 2, 3));      // 6
-console.log(modernSum(1, 2, 3));   // 6
-```
-
 ### 2.2 Rest in Array Destructuring
-
-#### Basic Rest in Arrays
-```javascript
-const [first, ...rest] = [1, 2, 3, 4, 5];
-console.log(first); // 1
-console.log(rest);  // [2, 3, 4, 5]
-
-// Empty rest
-const [a, b, c, ...remainder] = [1, 2, 3];
-console.log(remainder); // []
-```
-
-#### Skipping Elements
-```javascript
-const numbers = [1, 2, 3, 4, 5, 6];
-
-// Skip first, collect rest
-const [, ...withoutFirst] = numbers;
-console.log(withoutFirst); // [2, 3, 4, 5, 6]
-
-// Get first and last, skip middle
-const [first, ...middle] = numbers;
-const last = middle.pop();
-console.log(first, last); // 1 6
-```
 
 #### Practical Array Processing
 ```javascript
@@ -250,35 +206,6 @@ console.log(recursiveSum([1, 2, 3, 4])); // 10
 
 ### 2.3 Rest in Object Destructuring
 
-#### Basic Rest in Objects
-```javascript
-const user = { 
-  id: 1, 
-  name: 'Alice', 
-  email: 'alice@example.com',
-  age: 30 
-};
-
-const { id, ...userWithoutId } = user;
-console.log(id);              // 1
-console.log(userWithoutId);   // { name: 'Alice', email: '...', age: 30 }
-```
-
-#### Extracting Specific Properties
-```javascript
-const config = {
-  host: 'localhost',
-  port: 3000,
-  username: 'admin',
-  password: 'secret',
-  database: 'mydb',
-  ssl: true
-};
-
-// Extract credentials, keep rest as connection config
-const { username, password, ...connectionConfig } = config;
-console.log(connectionConfig);
-// { host: 'localhost', port: 3000, database: 'mydb', ssl: true }
 ```
 
 #### Removing Multiple Properties
